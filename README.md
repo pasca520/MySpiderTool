@@ -7,7 +7,7 @@
 
 使用方式：
 1. 替换邮箱授权码
-2. 替换 data 数据，可使用开发者工具在吉祥的 m 站（https://m.juneyaoair.com/）拿到信息
+2. 替换 data 数据，可使用开发者工具在吉祥的 m 站（ https://m.juneyaoair.com/ ）拿到信息
 3. 使用 crontab 定时脚本（unix 系统可以）
 
 
