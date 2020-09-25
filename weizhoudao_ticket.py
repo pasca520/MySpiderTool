@@ -87,26 +87,37 @@ def requests_info():
         'pick': '0'
     }
 
-    response = requests.post('https://m.laiu8.cn/ship/lineEnter', headers=headers, cookies=cookies, data=data).json()
-    line_list = response.get('line_list')
+
+
     time_stamp = datetime.datetime.now().strftime('%Y.%m.%d %H:%M:%S')
     try:
-        for i in range(len(line_list)):
-            code = line_list[i].get('code')
-            lineName = line_list[i].get('lineName')
-            plannedDepartureDate = line_list[i].get('plannedDepartureDate')
-            plannedDepartureTime = line_list[i].get('plannedDepartureTime')
-            run_time = line_list[i].get('run_time')
-            sale_num = line_list[i].get('sale_num')
-            if code != 'WB03':
-                content = '船号:{}, 行程:{}, 时间:{} {}, 耗时:{}, 余票：{}'.format(code, lineName, plannedDepartureDate,
-                                                                        plannedDepartureTime, run_time, sale_num)
-                if sale_num > 0:
-                    content = content + '该船有位置了！'
-                    sendemail(content)
-                else:
-                    content = time_stamp + '  ' + content + '    该船没有位置'
-                    print(content)
+        response = requests.post('https://m.laiu8.cn/ship/lineEnter', headers=headers, cookies=cookies,
+                                 data=data).json()
+
+        code = response.get('code')
+        msg = response.get('msg')
+
+        if code == 1:
+            content = time_stamp + '  ' + msg
+            print(content)
+        else:
+            line_list = response.get('line_list')
+            for i in range(len(line_list)):
+                code = line_list[i].get('code')
+                lineName = line_list[i].get('lineName')
+                plannedDepartureDate = line_list[i].get('plannedDepartureDate')
+                plannedDepartureTime = line_list[i].get('plannedDepartureTime')
+                run_time = line_list[i].get('run_time')
+                sale_num = line_list[i].get('sale_num')
+                if code != 'WB03':
+                    content = '船号:{}, 行程:{}, 时间:{} {}, 耗时:{}, 余票：{}'.format(code, lineName, plannedDepartureDate,
+                                                                            plannedDepartureTime, run_time, sale_num)
+                    if sale_num > 0:
+                        content = content + '该船有位置了！'
+                        sendemail(content)
+                    else:
+                        content = time_stamp + '  ' + content + '  该船没有位置'
+                        print(content)
     except requests.exceptions.Timeout as e:
         print('请求超时：' + str(e.message))
     except requests.exceptions.HTTPError as e:
