@@ -70,37 +70,41 @@ def requests_info(data):
             'https://m.juneyaoair.com/server/v2/flight/AvFare',
             headers=headers,
             data=data.encode('utf-8')).json()
-        flightInfoList = response.get("flightInfoList")
-        for flightInfo in flightInfoList:
-            for cabinFare in flightInfo['cabinFareList']:
-                if cabinFare['cabinCode'] == 'X':
-                    # for airName in airNames:
-                    carrierNoName = flightInfo.get('carrierNoName')
-                    # if carrierNoName == airName:
-                    arrCityName = flightInfo.get('arrCityName')
-                    arrAirportName = flightInfo.get('arrAirportName')
-                    arrTerm = flightInfo.get('arrTerm')
-                    arrDateTime = flightInfo.get('arrDateTime')[-5:]
-                    depCityName = flightInfo.get('depCityName')
-                    depAirportName = flightInfo.get('depAirportName')
-                    depTerm = flightInfo.get('depTerm')
-                    depDateTime = flightInfo.get('depDateTime')[-5:]
-                    cabinNumber = cabinFare['cabinNumber']
-                    content = '航班:{}, 出发地: {}, 到达地: {}, 时间: {}~{}  '.format(
-                        carrierNoName,
-                        depCityName + depAirportName + depTerm,
-                        arrCityName + arrAirportName + arrTerm,
-                        depDateTime,
-                        arrDateTime)
-                    if cabinNumber == 'A':
-                        content = content + '该航班可以兑换畅飞卡座位！'
-                        sendemail(content)
-                    elif int(cabinNumber) > 0:
-                        content = content + '该航班剩余 %s 张畅飞卡座位！' % cabinNumber
-                        sendemail(content)
-                    else:
-                        content = time_stamp + '  ' + content + '无畅飞卡座位'
-                        print(content)
+        errorInfo = response.get("errorInfo")
+        if errorInfo =='查询过于频繁':
+            print(time_stamp, errorInfo)
+        else:
+            flightInfoList = response.get("flightInfoList")
+            for flightInfo in flightInfoList:
+                for cabinFare in flightInfo['cabinFareList']:
+                    if cabinFare['cabinCode'] == 'X':
+                        # for airName in airNames:
+                        carrierNoName = flightInfo.get('carrierNoName')
+                        # if carrierNoName == airName:
+                        arrCityName = flightInfo.get('arrCityName')
+                        arrAirportName = flightInfo.get('arrAirportName')
+                        arrTerm = flightInfo.get('arrTerm')
+                        arrDateTime = flightInfo.get('arrDateTime')[-5:]
+                        depCityName = flightInfo.get('depCityName')
+                        depAirportName = flightInfo.get('depAirportName')
+                        depTerm = flightInfo.get('depTerm')
+                        depDateTime = flightInfo.get('depDateTime')[-5:]
+                        cabinNumber = cabinFare['cabinNumber']
+                        content = '航班:{}, 出发地: {}, 到达地: {}, 时间: {}~{}  '.format(
+                            carrierNoName,
+                            depCityName + depAirportName + depTerm,
+                            arrCityName + arrAirportName + arrTerm,
+                            depDateTime,
+                            arrDateTime)
+                        if cabinNumber == 'A':
+                            content = content + '该航班可以兑换畅飞卡座位！'
+                            sendemail(content)
+                        elif int(cabinNumber) > 0:
+                            content = content + '该航班剩余 %s 张畅飞卡座位！' % cabinNumber
+                            sendemail(content)
+                        else:
+                            content = time_stamp + '  ' + content + '无畅飞卡座位'
+                            print(content)
     except requests.exceptions.Timeout as e:
         print('请求超时：' + str(e.message))
     except requests.exceptions.HTTPError as e:
