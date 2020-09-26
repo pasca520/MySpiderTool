@@ -93,11 +93,8 @@ def requests_info():
     try:
         response = requests.post('https://m.laiu8.cn/ship/lineEnter', headers=headers, cookies=cookies,
                                  data=data).json()
-
-        code = response.get('code')
         msg = response.get('msg')
-
-        if code == 1:
+        if msg == '抱歉，系统23:45-05:00进行维护!':
             content = time_stamp + '  ' + msg
             print(content)
         else:
