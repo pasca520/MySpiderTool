@@ -50,14 +50,15 @@ def requests_info(data):
         'Connection': 'keep-alive',
         'Pragma': 'no-cache',
         'Cache-Control': 'no-cache',
-        'versionCode': '17000',
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36',
+        'versionCode': '17200',
+        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1',
         'platformInfo': 'MWEB',
         'Content-Type': 'application/json;charset=UTF-8',
         'Accept': 'application/json, text/plain, */*',
         'channelCode': 'MWEB',
-        'timeStamp': '1599066659285',
-        'clientVersion': '1.7.0',
+        'timeStamp': '1601259465395',
+        'token': '',
+        'clientVersion': '1.7.2',
         'Origin': 'https://m.juneyaoair.com',
         'Sec-Fetch-Site': 'same-origin',
         'Sec-Fetch-Mode': 'cors',
@@ -112,7 +113,8 @@ def requests_info(data):
 
 
 if __name__ == '__main__':
-    data = ['{"arrCity":"\u4E0A\u6D77","sendCity":"\u4E4C\u9C81\u6728\u9F50","directType":"D","flightType":"OW","tripType":"D","arrCode":"SHA","sendCode":"URC","departureDate":"2020-10-11","returnDate":"2020-10-13","queryType":"","blackBox":"eyJ2IjoiNGhYNnhwMGNMOXc5KzVnRnkwNDErMDVYTTNQblgrOEZHMDhXTzZ2UXJEcVQrTUJxUHhaMUFWSXF5UFgyVlQzNCIsIm9zIjoid2ViIiwiaXQiOjE0ODIsInQiOiJNTk51YUJtQnRGU3J1MU9GOWJRTzdnRXdENzNHQkY1ZEZBekluclRKdGZMZWo2ZDRGOVJ4SUM2dGpIUThFOUNyV2txTzRZNWFHN1phb2gvOFR6ejdFUT09In0=","channelCode":"MWEB","clientVersion":"1.7.0","versionCode":"17000"}'
+    data = [
+        '{"arrCity":"\u4E0A\u6D77","sendCity":"\u4E4C\u9C81\u6728\u9F50","directType":"D","flightType":"OW","tripType":"D","arrCode":"SHA","sendCode":"URC","departureDate":"2020-10-11","returnDate":"2020-10-13","queryType":"","blackBox":"eyJ2IjoiNGhYNnhwMGNMOXc5KzVnRnkwNDErMDVYTTNQblgrOEZHMDhXTzZ2UXJEcVQrTUJxUHhaMUFWSXF5UFgyVlQzNCIsIm9zIjoid2ViIiwiaXQiOjE1NTQsInQiOiJaRERRekhwbzR5ODZ5Uk9Ec1BYYS8wOFl5ekF2elN1TVFTbEJxU0JmajNpTFB1ODF2aVd0bkZEUzZmNWp3czN0czd0dXRpQzJFWitISzloMWlFbXBBZz09In0=","channelCode":"MWEB","clientVersion":"1.7.2","versionCode":"17200"}'
             ]
     for i in range(len(data)):
         requests_info(data[i])
