@@ -15,7 +15,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/MySpiderTool$dianPingFreeFood.coverage" NAME="dianPingFreeFood Coverage Results" MODIFIED="1605716202409" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MySpiderTool$dianPingFreeFood.coverage" NAME="dianPingFreeFood Coverage Results" MODIFIED="1605753548849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/jiXiang_unlimitedFly_tool$juneyaoAir.coverage" NAME="juneyaoAir Coverage Results" MODIFIED="1599150282648" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jiXiang_unlimitedFly_tool/spiders" />
     <SUITE FILE_PATH="coverage/jiXiang_unlimitedFly_tool$test.coverage" NAME="test Coverage Results" MODIFIED="1601020195962" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/jiXiang_unlimitedFly_tool$items.coverage" NAME="items Coverage Results" MODIFIED="1599149704803" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jiXiang_unlimitedFly_tool" />
@@ -192,7 +192,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test1">
+  <component name="RunManager" selected="Python.dianPingFreeFood">
     <configuration name="dianPingFreeFood" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="MySpiderTool" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -297,8 +297,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test1" />
         <item itemvalue="Python.dianPingFreeFood" />
+        <item itemvalue="Python.test1" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.jiXiang_unlimitedFly_tool" />
         <item itemvalue="Python.weizhoudao_ticket" />

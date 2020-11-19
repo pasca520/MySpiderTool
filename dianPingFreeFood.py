@@ -161,7 +161,6 @@ def free_food_list():
 
 if __name__ == '__main__':
     cookies = login_web()
-    applyPhone = input('请输入')
     headers1 = {
         'Connection': 'keep-alive',
         'Pragma': 'no-cache',
