@@ -55,8 +55,7 @@ def login_web():
 
 
 # 报名项目
-def apply_project(offlineActivityId, branchId):
-    applyPhone = get_phone(offlineActivityId)
+def apply_project(offlineActivityId, branchId, applyPhone):
     data = {
         'offlineActivityId': offlineActivityId,
         'phoneNo': applyPhone,
@@ -118,12 +117,15 @@ def get_phone(offlineActivityId):
     response = requests.post(url=url, headers=headers,
                              cookies=cookies,
                              data=data, verify=False).json()
+    code = response.get('code')
     msg = response.get('msg')
     html = msg.get('html')
-    htmlData = etree.HTML(html)
-    phone = htmlData.xpath('//div/ul/li/input/@value')[0]  # 获取属性内容：/li/a/@herf ， 获取文本内容：/li/a/text()
-    return phone
-
+    if html == "您已经参与过了":
+        return None
+    else:
+        htmlData = etree.HTML(html)
+        applyPhone = htmlData.xpath('//div/ul/li/input/@value')[0]  # 获取属性内容：/li/a/@herf ， 获取文本内容：/li/a/text()
+        return applyPhone
 
 # 获取列表信息
 def free_food_list():
@@ -136,12 +138,14 @@ def free_food_list():
         if response.get('code') == 200:
             data = response.get('data')
             detail = data.get('detail')
+            offlineActivityId = detail[0].get('offlineActivityId')  # 为了获取手机号码额外加的
+            applyPhone = get_phone(offlineActivityId)
             for i in range(len(detail)):
                 branchId = ''
                 offlineActivityId = detail[i].get('offlineActivityId')
                 detailUrl = detail[i].get('detailUrl')
                 activityTitle = detail[i].get('activityTitle')
-                applyResponse = apply_project(offlineActivityId, branchId)
+                applyResponse = apply_project(offlineActivityId, branchId, applyPhone)
                 code = applyResponse.get('code')
                 msg = applyResponse.get('msg')
                 html = msg.get('html')
@@ -149,7 +153,7 @@ def free_food_list():
                     print(detailUrl, activityTitle, '报名成功!')
                 elif code == 500 and html == "请选择分店":
                     branchId, branchName, infoRes = get_branch(offlineActivityId)
-                    apply_project(offlineActivityId, branchId)
+                    apply_project(offlineActivityId, branchId, applyPhone)
                     print(detailUrl, activityTitle, branchName, infoRes)
                 elif code == 500 and msg == None:
                     print(detailUrl, activityTitle, '报名异常')
