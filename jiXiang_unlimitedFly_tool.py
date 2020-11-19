@@ -40,6 +40,40 @@ def sendemail(content):
         server.quit()
 
 
+def parse_flight(flightInfoList):
+    for flightInfo in flightInfoList:
+        for cabinFare in flightInfo['cabinFareList']:
+            if cabinFare['cabinCode'] == 'X':
+                # for airName in airNames:
+                carrierNoName = flightInfo.get('carrierNoName')
+                # if carrierNoName == airName:
+                arrCityName = flightInfo.get('arrCityName')
+                arrAirportName = flightInfo.get('arrAirportName')
+                arrTerm = flightInfo.get('arrTerm')
+                arrDateTime = flightInfo.get('arrDateTime')[-5:]
+                depCityName = flightInfo.get('depCityName')
+                depAirportName = flightInfo.get('depAirportName')
+                depTerm = flightInfo.get('depTerm')
+                depDateTime = flightInfo.get('depDateTime')[-5:]
+                cabinNumber = cabinFare['cabinNumber']
+                content = '航班:{}, 出发地: {}, 到达地: {}, 时间: {}~{}  '.format(
+                    carrierNoName,
+                    depCityName + depAirportName + depTerm,
+                    arrCityName + arrAirportName + arrTerm,
+                    depDateTime,
+                    arrDateTime)
+                if cabinNumber == 'A':
+                    content = content + '该航班可以兑换畅飞卡座位！'
+                    sendemail(content)
+                elif int(cabinNumber) > 0:
+                    content = content + '该航班剩余 %s 张畅飞卡座位！' % cabinNumber
+                    sendemail(content)
+                else:
+                    content = time_stamp + '  ' + content + '无畅飞卡座位'
+                    print(content)
+
+
+
 def requests_info(data):
     """
     :param data: 监控航班，data 需要在吉祥 m 站抓包拿到
@@ -76,45 +110,19 @@ def requests_info(data):
             print(time_stamp, errorInfo)
         else:
             flightInfoList = response.get("flightInfoList")
-            for flightInfo in flightInfoList:
-                for cabinFare in flightInfo['cabinFareList']:
-                    if cabinFare['cabinCode'] == 'X':
-                        # for airName in airNames:
-                        carrierNoName = flightInfo.get('carrierNoName')
-                        # if carrierNoName == airName:
-                        arrCityName = flightInfo.get('arrCityName')
-                        arrAirportName = flightInfo.get('arrAirportName')
-                        arrTerm = flightInfo.get('arrTerm')
-                        arrDateTime = flightInfo.get('arrDateTime')[-5:]
-                        depCityName = flightInfo.get('depCityName')
-                        depAirportName = flightInfo.get('depAirportName')
-                        depTerm = flightInfo.get('depTerm')
-                        depDateTime = flightInfo.get('depDateTime')[-5:]
-                        cabinNumber = cabinFare['cabinNumber']
-                        content = '航班:{}, 出发地: {}, 到达地: {}, 时间: {}~{}  '.format(
-                            carrierNoName,
-                            depCityName + depAirportName + depTerm,
-                            arrCityName + arrAirportName + arrTerm,
-                            depDateTime,
-                            arrDateTime)
-                        if cabinNumber == 'A':
-                            content = content + '该航班可以兑换畅飞卡座位！'
-                            sendemail(content)
-                        elif int(cabinNumber) > 0:
-                            content = content + '该航班剩余 %s 张畅飞卡座位！' % cabinNumber
-                            sendemail(content)
-                        else:
-                            content = time_stamp + '  ' + content + '无畅飞卡座位'
-                            print(content)
+            parse_flight(flightInfoList)
     except requests.exceptions.Timeout as e:
         print('请求超时：' + str(e.message))
     except requests.exceptions.HTTPError as e:
         print('http请求错误:' + str(e.message))
 
 
+
+
 if __name__ == '__main__':
     data = [
-        '{"arrCity":"\u4E0A\u6D77","sendCity":"\u4E4C\u9C81\u6728\u9F50","directType":"D","flightType":"OW","tripType":"D","arrCode":"SHA","sendCode":"URC","departureDate":"2020-10-11","returnDate":"2020-10-13","queryType":"","blackBox":"eyJ2IjoiNGhYNnhwMGNMOXc5KzVnRnkwNDErMDVYTTNQblgrOEZHMDhXTzZ2UXJEcVQrTUJxUHhaMUFWSXF5UFgyVlQzNCIsIm9zIjoid2ViIiwiaXQiOjE1NTQsInQiOiJaRERRekhwbzR5ODZ5Uk9Ec1BYYS8wOFl5ekF2elN1TVFTbEJxU0JmajNpTFB1ODF2aVd0bkZEUzZmNWp3czN0czd0dXRpQzJFWitISzloMWlFbXBBZz09In0=","channelCode":"MWEB","clientVersion":"1.7.2","versionCode":"17200"}'
+'{"directType":"D","flightType":"OW","tripType":"D","arrCode":"SHA","sendCode":"HRB","departureDate":"2020-11-28","queryType":"","blackBox":"eyJ2IjoiNGhYNnhwMGNMOXc5KzVnRnkwNDErMDVYTTNQblgrOEZHMDhXTzZ2UXJEcVQrTUJxUHhaMUFWSXF5UFgyVlQzNCIsIm9zIjoid2ViIiwiaXQiOjE1NTQsInQiOiJaRERRekhwbzR5ODZ5Uk9Ec1BYYS8wOFl5ekF2elN1TVFTbEJxU0JmajNpTFB1ODF2aVd0bkZEUzZmNWp3czN0czd0dXRpQzJFWitISzloMWlFbXBBZz09In0=","channelCode":"MWEB","clientVersion":"1.7.2","versionCode":"17200"}'
             ]
+
     for i in range(len(data)):
         requests_info(data[i])
