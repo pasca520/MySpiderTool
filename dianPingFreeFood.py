@@ -23,9 +23,10 @@ def login_web():
     timeout = WebDriverWait(driver, 10)  # 定义超时事件
     timeout.until(EC.frame_to_be_available_and_switch_to_it(
         (By.XPATH, '//*[@id="J_login_container"]/div/iframe')))  # 切换到 frame 框架
-    timeout.until(EC.element_to_be_clickable((By.CLASS_NAME, 'qrcode-img')))  # 查看是否有扫码，验证是否登陆
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'qrcode-img')))  # 查看是否有扫码，验证是否登陆
     driver.switch_to.default_content()  # 切出框架
-    sleep(10)
+    WebDriverWait(driver, 180).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[2]')))  # 出现扫码登陆后关闭
+    sleep(40)
     # timeout.until(EC.element_to_be_clickable((By.CLASS_NAME, 'bottom-password-login'))).click()  # 点击 “账户登陆”
     # # timeout.until(EC.element_to_be_clickable((By.ID, 'tab-account'))).click().click()  # 点击手机密码登陆
     # driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
@@ -120,14 +121,15 @@ def get_phone(offlineActivityId):
     code = response.get('code')
     msg = response.get('msg')
     html = msg.get('html')
-    if html == "您已经参与过了":
+    if html == "您已经参与过了" or []:
         return None
     else:
         htmlData = etree.HTML(html)
-        applyPhone = htmlData.xpath('//div/ul/li/input/@value')[0]  # 获取属性内容：/li/a/@herf ， 获取文本内容：/li/a/text()
+        applyPhone = htmlData.xpath('//div/ul/li/input/@value') # 获取属性内容：/li/a/@herf ， 获取文本内容：/li/a/text()
+        # print(applyPhone)
         return applyPhone
 
-# 获取列表信息
+# 获取美食列表信息
 def free_food_list():
     for page in range(1, 30):
         data = '{"cityId":"1","type":0,"mode":"","page":%s}' % page  # type1：美食，type2：丽人，type6：玩乐
@@ -165,6 +167,7 @@ def free_food_list():
 
 if __name__ == '__main__':
     cookies = login_web()
+    print(cookies)
     headers1 = {
         'Connection': 'keep-alive',
         'Pragma': 'no-cache',

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import datetime
+import random
+import requests
 import smtplib
 from configparser import ConfigParser
 from email.mime.text import MIMEText
 
-import requests
 
-
-def sendemail(content):
+def send_mail(content):
     """
     :param content: 邮件内容
     :return: 发送状态
@@ -40,7 +40,7 @@ def sendemail(content):
         server.quit()
 
 
-def parse_flight(flightInfoList):
+def parse_flight(flightInfoList, time_stamp):
     for flightInfo in flightInfoList:
         for cabinFare in flightInfo['cabinFareList']:
             if cabinFare['cabinCode'] == 'X':
@@ -50,28 +50,31 @@ def parse_flight(flightInfoList):
                 arrCityName = flightInfo.get('arrCityName')
                 arrAirportName = flightInfo.get('arrAirportName')
                 arrTerm = flightInfo.get('arrTerm')
+                flightDate = flightInfo.get('flightDate')  # 航班日期
                 arrDateTime = flightInfo.get('arrDateTime')[-5:]
                 depCityName = flightInfo.get('depCityName')
                 depAirportName = flightInfo.get('depAirportName')
                 depTerm = flightInfo.get('depTerm')
                 depDateTime = flightInfo.get('depDateTime')[-5:]
                 cabinNumber = cabinFare['cabinNumber']
-                content = '航班:{}, 出发地: {}, 到达地: {}, 时间: {}~{}  '.format(
+                content = '航班:{}, 日期: {}, 出发地: {}, 到达地: {}, 时间: {}~{}  '.format(
                     carrierNoName,
+                    flightDate,
                     depCityName + depAirportName + depTerm,
                     arrCityName + arrAirportName + arrTerm,
                     depDateTime,
                     arrDateTime)
-                if cabinNumber == 'A':
-                    content = content + '该航班可以兑换畅飞卡座位！'
-                    sendemail(content)
-                elif int(cabinNumber) > 0:
-                    content = content + '该航班剩余 %s 张畅飞卡座位！' % cabinNumber
-                    sendemail(content)
-                else:
-                    content = time_stamp + '  ' + content + '无畅飞卡座位'
-                    print(content)
 
+                if cabinNumber == 'A' and carrierNoName in {
+                        'HO1202': '深圳', 'HO1110': '深圳', 'HO1156': '深圳'}:
+                    content = content + '该航班可以兑换畅飞卡座位！'
+                    send_mail(content)
+                elif (cabinNumber == 'A' or int(cabinNumber) > 0) and carrierNoName in {'HO1202': '深圳', 'HO1110': '深圳', 'HO1156': '深圳'}:
+                    content = content + '该航班剩余 %s 张畅飞卡座位！' % cabinNumber
+                    send_mail(content)
+                else:
+                    content = time_stamp + '  ' + content + '余座: %s' % cabinNumber
+                    print(content)
 
 
 def requests_info(data):
@@ -106,23 +109,22 @@ def requests_info(data):
             headers=headers,
             data=data.encode('utf-8')).json()
         errorInfo = response.get("errorInfo")
-        if errorInfo =='查询过于频繁':
+        if errorInfo == '查询过于频繁':
             print(time_stamp, errorInfo)
         else:
             flightInfoList = response.get("flightInfoList")
-            parse_flight(flightInfoList)
+            parse_flight(flightInfoList, time_stamp)
     except requests.exceptions.Timeout as e:
         print('请求超时：' + str(e.message))
     except requests.exceptions.HTTPError as e:
         print('http请求错误:' + str(e.message))
 
 
-
-
 if __name__ == '__main__':
+    blackBox = ['eyJ2IjoiNGhYNnhwMGNMOXc5KzVnRnkwNDErMDVYTTNQblgrOEZHMDhXTzZ2UXJEcVQrTUJxUHhaMUFWSXF5UFgyVlQzNCIsIm9zIjoid2ViIiwiaXQiOjE1NTQsInQiOiJaRERRekhwbzR5ODZ5Uk9Ec1BYYS8wOFl5ekF2elN1TVFTbEJxU0JmajNpTFB1ODF2aVd0bkZEUzZmNWp3czN0czd0dXRpQzJFWitISzloMWlFbXBBZz09In0=']
     data = [
-'{"directType":"D","flightType":"OW","tripType":"D","arrCode":"SHA","sendCode":"HRB","departureDate":"2020-11-28","queryType":"","blackBox":"eyJ2IjoiNGhYNnhwMGNMOXc5KzVnRnkwNDErMDVYTTNQblgrOEZHMDhXTzZ2UXJEcVQrTUJxUHhaMUFWSXF5UFgyVlQzNCIsIm9zIjoid2ViIiwiaXQiOjE1NTQsInQiOiJaRERRekhwbzR5ODZ5Uk9Ec1BYYS8wOFl5ekF2elN1TVFTbEJxU0JmajNpTFB1ODF2aVd0bkZEUzZmNWp3czN0czd0dXRpQzJFWitISzloMWlFbXBBZz09In0=","channelCode":"MWEB","clientVersion":"1.7.2","versionCode":"17200"}'
-            ]
-
+        '{"directType":"D","flightType":"OW","tripType":"D","arrCode":"SHA","sendCode":"SZX","departureDate":"2020-12-06","queryType":"","blackBox":"%s","channelCode":"MWEB","clientVersion":"1.7.2","versionCode":"17200"}' %
+        random.choice(blackBox)
+    ]
     for i in range(len(data)):
         requests_info(data[i])
