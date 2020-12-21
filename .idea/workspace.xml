@@ -20,7 +20,7 @@
     <SUITE FILE_PATH="coverage/jiXiang_unlimitedFly_tool$test.coverage" NAME="test Coverage Results" MODIFIED="1601020195962" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/jiXiang_unlimitedFly_tool$items.coverage" NAME="items Coverage Results" MODIFIED="1599149704803" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jiXiang_unlimitedFly_tool" />
     <SUITE FILE_PATH="coverage/MySpiderTool$weizhoudao_ticket.coverage" NAME="weizhoudao_ticket Coverage Results" MODIFIED="1601125274967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MySpiderTool$jiXiang_unlimitedFly_tool.coverage" NAME="jiXiang_unlimitedFly_tool Coverage Results" MODIFIED="1606063199976" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MySpiderTool$jiXiang_unlimitedFly_tool.coverage" NAME="jiXiang_unlimitedFly_tool Coverage Results" MODIFIED="1606925314917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MySpiderTool$test.coverage" NAME="test Coverage Results" MODIFIED="1605715137851" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/jiXiang_unlimitedFly_tool$requests_spider.coverage" NAME="requests_spider Coverage Results" MODIFIED="1601016832332" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/jiXiang_unlimitedFly_tool$weizhou.coverage" NAME="weizhou Coverage Results" MODIFIED="1601020734813" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -78,8 +78,8 @@
       <file leaf-file-name="jiXiang_unlimitedFly_tool.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jiXiang_unlimitedFly_tool.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="75" column="48" selection-start-line="75" selection-start-column="48" selection-end-line="75" selection-end-column="48" />
+            <state relative-caret-position="298">
+              <caret line="16" column="50" selection-start-line="16" selection-start-column="50" selection-end-line="16" selection-end-column="50" />
               <folding>
                 <element signature="e#24#39#0" expanded="true" />
               </folding>
@@ -345,7 +345,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="调试" order="7" weight="0.32969698" />
@@ -591,8 +590,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jiXiang_unlimitedFly_tool.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="75" column="48" selection-start-line="75" selection-start-column="48" selection-end-line="75" selection-end-column="48" />
+        <state relative-caret-position="298">
+          <caret line="16" column="50" selection-start-line="16" selection-start-column="50" selection-end-line="16" selection-end-column="50" />
           <folding>
             <element signature="e#24#39#0" expanded="true" />
           </folding>
