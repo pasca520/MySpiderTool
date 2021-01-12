@@ -32,3 +32,16 @@ https://m.juneyaoair.com/ ）拿到信息
 http://npm.taobao.org/mirrors/chromedriver/
 
 然后直接执行即可。
+
+
+
+## testTextGenerator.py
+### 介绍
+自动生成指定数量和大小的 txt 文本，主要用来测试。
+
+### 执行方式
+```
+python3 testTextGenerator.py
+```
+
+然后输入数量即可
